@@ -41,9 +41,10 @@ public class CommentRepository {
     //Executes JPQL query to fetch the image from the database with corresponding id
     //Returns the image fetched from the database
 
-    public List<Comment> getAllComment() {
+    public List<Comment> getAllComment(int id) {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Comment> query = em.createQuery("SELECT i from Comment i", Comment.class);
+
+        TypedQuery<Comment> query = em.createQuery("SELECT i from Comment i where i.image.id = :id", Comment.class).setParameter("id", id);;
         List<Comment> resultList = query.getResultList();
         return resultList;
 

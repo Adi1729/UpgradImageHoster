@@ -19,8 +19,8 @@ public class CommentService {
         commentRepository.addComment(comment);
     }
 
-    public List<Comment> getAllComment() {
-        return commentRepository.getAllComment();
+    public List<Comment> getAllComment(int id) {
+        return commentRepository.getAllComment(id);
     }
 
 

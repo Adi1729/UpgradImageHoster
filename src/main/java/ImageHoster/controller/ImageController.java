@@ -55,18 +55,21 @@ public class ImageController {
         Image image = imageService.getImage(id);
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
-        List<Comment> comment = commentService.getAllComment();
+
+        List<Comment> comment = commentService.getAllComment(id);
+
         model.addAttribute("comments", comment);
         return "images/image";
     }
 
 
     @RequestMapping(value = "/image/{imageId}/{imageTitle}/comments", method = RequestMethod.POST)
-    public String createComment(@RequestParam("comment") String text, Comment newComment , HttpSession session, Model model)  {
+    public String createComment(@RequestParam("comment") String text, Comment newComment , @PathVariable("imageId") Integer imageId, HttpSession session, Model model)  {
         User user = (User) session.getAttribute("loggeduser");
         newComment.getUser();
         newComment.setUser(user);
         newComment.setText(text);
+        newComment.setImage(imageService.getImage(imageId));
         commentService.addComment(newComment);
 
         return "redirect:/images";

@@ -89,4 +89,6 @@ public class Comment {
     public void setImage(Image image) {
         this.image = image;
     }
+
+
 }
